@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "4056b6b9-be07-45c4-a32f-b4389bd872d8",
+		"name": "Todo API - Fayis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30394803",
+		"_collection_link": "https://www.postman.com/aviation-technologist-85040384/workspace/first-documentation/collection/30394803-4056b6b9-be07-45c4-a32f-b4389bd872d8?action=share&source=collection_link&creator=30394803"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register - User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();\r",
+									"pm.environment.set(\"token\", data.token);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"fayis@gmail.com\",\r\n  \"password\": \"pass@123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{taskApiUrl}}/api/auth/register",
+							"host": [
+								"{{taskApiUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login - User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const data = pm.response.json();\r",
+									"pm.environment.set(\"token\", data.token);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"fayis@gmail.com\",\r\n  \"password\": \"pass@123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{taskApiUrl}}/api/auth/login",
+							"host": [
+								"{{taskApiUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Create Task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Buy Milk 2\",\r\n  \"description\": \"Buy 2L milk from shop\",\r\n  \"dueDate\": \"2025-06-30\",\r\n  \"category\": \"Shopping\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{taskApiUrl}}/api/tasks",
+							"host": [
+								"{{taskApiUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Tasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{taskApiUrl}}/api/tasks",
+							"host": [
+								"{{taskApiUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Task",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{taskApiUrl}}/api/tasks/search?query=milk",
+							"host": [
+								"{{taskApiUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "milk"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Task by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Buy Milk 2\",\r\n  \"description\": \"Buy 2L milk from shop\",\r\n  \"dueDate\": \"2025-06-30\",\r\n  \"category\": \"Shopping\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{taskApiUrl}}/api/tasks/6856548621dc75a9fb074813",
+							"host": [
+								"{{taskApiUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"6856548621dc75a9fb074813"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Buy Bread\",\r\n  \"description\": \"Brown bread\",\r\n  \"status\": \"pending\",\r\n  \"category\": \"Shopping\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{taskApiUrl}}/api/tasks/6856548621dc75a9fb074813",
+							"host": [
+								"{{taskApiUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"6856548621dc75a9fb074813"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark as Completed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{taskApiUrl}}/api/tasks/685654fd21dc75a9fb074818/markCompleted/",
+							"host": [
+								"{{taskApiUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"685654fd21dc75a9fb074818",
+								"markCompleted",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark as Pending",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{taskApiUrl}}/api/tasks/685654fd21dc75a9fb074818",
+							"host": [
+								"{{taskApiUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"685654fd21dc75a9fb074818"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tasks category-wise",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Buy Milk 2\",\r\n  \"description\": \"Buy 2L milk from shop\",\r\n  \"dueDate\": \"2025-06-30\",\r\n  \"category\": \"Shopping\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{taskApiUrl}}/api/tasks/category/Shopping",
+							"host": [
+								"{{taskApiUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"category",
+								"Shopping"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
