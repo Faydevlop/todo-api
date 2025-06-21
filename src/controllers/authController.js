@@ -4,6 +4,12 @@ const User = require("../models/User");
 
 exports.register = async (req, res) => {
   const { email, password } = req.body;
+
+  // Validation
+  if (!email || !password) {
+    return res.status(400).json({ msg: "Email and password are required" });
+  }
+
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ msg: "User already exists" });
@@ -18,10 +24,17 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
+
+  // Validation
+  if (!email || !password) {
+    return res.status(400).json({ msg: "Email and password are required" });
+  }
+
   try {
     const user = await User.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.passwordHash)))
+    if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
       return res.status(400).json({ msg: "Invalid credentials" });
+    }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     res.json({ token });
@@ -29,3 +42,4 @@ exports.login = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
+

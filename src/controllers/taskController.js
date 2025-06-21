@@ -1,7 +1,10 @@
 const Task = require("../models/Task");
 
 exports.createTask = async (req, res) => {
+    console.log(req.body);
   const { title, description, dueDate, category } = req.body;
+  
+  
   try {
     const task = await Task.create({
       userId: req.userId,
